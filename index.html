@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.3.3/dist/aframe-environment-component.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-cursor-teleport@1.6.0/dist/aframe-cursor-teleport-component.min.js"></script>
+</head>
+
+<body>
+    <a-scene raycaster-autorefresh cursor="rayOrigin: mouse">
+        <a-assets>
+            <img id="sky-image" src="src/sky.png">
+            <img id="floor" src="src/floor.jpg">
+            <img id="wall" src="src/wall.jpg">
+            <img id="door-texture" src="src/door.jpg">
+            <a-assets-item id = "vending_machine" src="src/vending_machine.glb"></a-assets-item>
+            <a-assets-item id = "hovercar" src="src/hovercar.glb"></a-assets-item>
+            <a-assets-item id = "desk" src="src/desk.glb"></a-assets-item>
+        </a-assets>
+    
+        <a-sky src="#sky-image" rotation="0 -90 0"></a-sky>
+        <a-entity environment="fog: 0; preset: threetowers; skyType: none"></a-entity>
+
+        <a-box position="-1 1.5 -5" width="8" height="3" depth="0.1" src="#wall" side="double"></a-box>
+
+        <a-entity position="3 1.5 -5" rotation="0 90 0" id="doorWrapper" door-animation>
+            <a-box class="door" width="0.2" height="3" depth="2" src="#door-texture" position="0 0 1"></a-box>
+        </a-entity>
+
+        <a-box position="0 1.5 10" width="10" height="3" depth="0.1" src="#wall" side="double"></a-box>
+        <a-box position="-5 1.5 2.5" width="0.1" height="3" depth="15" src="#wall" side="double"></a-box>
+        <a-box position="5 1.5 2.5" width="0.1" height="3" depth="15" src="#wall" side="double"></a-box>
+
+        <a-box static-body src="#floor" position="0 0 2.5" rotation="0 0 0" width="10" height="0.2" depth="15"></a-box>
+        <a-box static-body src="#floor" position="0 3 2.5" rotation="0 0 0" width="10" height="0.2" depth="15"></a-box>
+
+        <a-entity ccamera position="0 1.6 0" look-controls wasd-controls>
+            <a-cursor></a-cursor>
+        </a-entity>
+        
+        <a-entity id="cameraRig" cursor-teleport="cameraRig: #cameraRig; cameraHead: #head">
+            <a-entity id="head" position="0 1.6 0" camera look-controls="reverseMouseDrag: true"></a-entity>
+          </a-entity>
+
+          <a-entity
+            id="vending_machine" visible="true" scale="1.5 1.5 1.5" gltf-model = #vending_machine position="-7 0 -1.2" rotation="0 180 0"></a-entity>
+          <a-entity
+            id="desk" visible="true" scale="0.5 0.5 0.5" gltf-model = #desk position="-1.45 -0.3 -1.2" rotation="0 90 0"></a-entity>
+
+            <a-entity id="carBox" position="-5 0 -11" geometry="primitive: box; width: 3; height: 1; depth: 3;" material="color: #ccc">
+                <a-entity id="hovercar" visible="true" scale="1.5 1.5 1.5" gltf-model="#hovercar" position="0 0 0" rotation="0 90 0"></a-entity>
+            </a-entity>
+    </a-scene>
+
+    <script src="script.js"></script>
+</body>
+</html>
